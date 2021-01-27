@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "discord.token-file",
+      "type": "java.lang.String",
+      "description": "name of the file where the token is stored"
+  }
+] }
