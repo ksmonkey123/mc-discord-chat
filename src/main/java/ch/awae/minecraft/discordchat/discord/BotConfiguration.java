@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Configuration
 public class BotConfiguration {
@@ -26,6 +27,8 @@ public class BotConfiguration {
                 .build()
                 .login()
                 .block();
+
+        Objects.requireNonNull(client);
 
         for(EventListener<T> listener : listeners) {
             client.on(listener.getEventType())

@@ -6,6 +6,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @EnableConfigurationProperties
 @SpringBootApplication
 public class McDiscordChatApplication {
@@ -17,6 +20,11 @@ public class McDiscordChatApplication {
     @Bean
     public RestTemplate createRestTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public ExecutorService createExecutorService() {
+        return Executors.newCachedThreadPool();
     }
 
 }
