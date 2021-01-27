@@ -1,5 +1,6 @@
 package ch.awae.minecraft.discordchat.discord;
 
+import discord4j.common.util.Snowflake;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +14,7 @@ import java.io.InputStreamReader;
 public class DiscordConfiguration {
 
     private String tokenFile;
+    private Long channelId;
 
     public String getTokenFile() {
         return tokenFile;
@@ -29,4 +31,11 @@ public class DiscordConfiguration {
         }
     }
 
+    public void setChannelId(Long channelId) {
+        this.channelId = channelId;
+    }
+
+    public Snowflake getChannelId() {
+        return Snowflake.of(channelId);
+    }
 }

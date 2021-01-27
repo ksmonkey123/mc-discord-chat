@@ -4,5 +4,10 @@
       "name": "discord.token-file",
       "type": "java.lang.String",
       "description": "name of the file where the token is stored"
-  }
-] }
+    },
+    {
+      "name": "discord.channel-id",
+      "type": "java.lang.Long",
+      "description": "UUID of the discord channel"
+    }
+  ] }
