@@ -3,6 +3,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "user": "SilenceBreaker",
-  "message": "hi there"
+  "user": "ksmonkey123",
+  "message": "hi there",
+  "token": "20587d8b-4c99-4eee-a25c-95f0545db06b"
 }

@@ -4,21 +4,25 @@ import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Objects;
 
+@Profile("!test")
 @Configuration
 public class BotConfiguration {
 
     private final String token;
 
     @Autowired
-    public BotConfiguration(DiscordConfig config) throws IOException {
-        token = config.getToken();
+    public BotConfiguration(@Value("${discord.token}") String tokenFile) throws IOException {
+        token = Files.readAllLines(new File(tokenFile).toPath()).get(0);
     }
 
     @Bean
@@ -30,7 +34,7 @@ public class BotConfiguration {
 
         Objects.requireNonNull(client);
 
-        for(EventListener<T> listener : listeners) {
+        for (EventListener<T> listener : listeners) {
             client.on(listener.getEventType())
                     .flatMap(listener::execute)
                     .onErrorResume(listener::handleError)

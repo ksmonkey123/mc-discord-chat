@@ -1,13 +1,8 @@
 {
   "properties": [
     {
-      "name": "discord.token-file",
+      "name": "discord.token",
       "type": "java.lang.String",
-      "description": "name of the file where the token is stored"
-    },
-    {
-      "name": "discord.channel-id",
-      "type": "java.lang.Long",
-      "description": "UUID of the discord channel"
-    }
-  ] }
+      "description": "discord bot token."
+  }
+] }

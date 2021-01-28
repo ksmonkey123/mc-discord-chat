@@ -1,6 +1,6 @@
-discord:
-  token-file: /token.txt
-  channel-id: 803775321694011432
-
-minecraft:
-  url: http://localhost:8080/mc/message
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false

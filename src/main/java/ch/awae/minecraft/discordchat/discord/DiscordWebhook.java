@@ -17,6 +17,7 @@ class DiscordWebhook {
     private final String url;
     private String content;
     private String username;
+    private String avatarUrl;
 
     DiscordWebhook(String url) {
         this.url = url;
@@ -30,6 +31,10 @@ class DiscordWebhook {
         this.username = username;
     }
 
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
     public void execute() throws IOException {
         if (this.content == null) {
             throw new IllegalArgumentException("Set content or add at least one EmbedObject");
@@ -39,6 +44,7 @@ class DiscordWebhook {
 
         json.put("content", this.content);
         json.put("username", this.username);
+        json.put("avatar_url", this.avatarUrl);
 
         URL url = new URL(this.url);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();

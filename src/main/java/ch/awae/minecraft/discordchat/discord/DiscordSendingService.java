@@ -1,10 +1,6 @@
 package ch.awae.minecraft.discordchat.discord;
 
-import discord4j.core.GatewayDiscordClient;
-import discord4j.core.object.entity.channel.Channel;
-import discord4j.discordjson.json.WebhookData;
-import discord4j.rest.entity.RestChannel;
-import org.springframework.beans.factory.annotation.Autowired;
+import ch.awae.minecraft.discordchat.persistence.model.Mapping;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,28 +8,11 @@ import java.io.IOException;
 @Service
 public class DiscordSendingService {
 
-    private final String url;
-
-    @Autowired
-    public DiscordSendingService(DiscordConfig config, GatewayDiscordClient client) {
-        this.url = client.getChannelById(config.getChannelId())
-                .map(Channel::getRestChannel)
-                .flatMapMany(RestChannel::getWebhooks)
-                .filter(w -> !w.token().isAbsent())
-                .toStream(1)
-                .findAny()
-                .map(this::generateWebhookURL)
-                .get();
-    }
-
-    private String generateWebhookURL(WebhookData webhook) {
-        return "https://discord.com/api/webhooks/" + webhook.id() + "/" + webhook.token().get();
-    }
-
-    public void send(String user, String message) throws IOException {
-        DiscordWebhook request = new DiscordWebhook(url);
+    public void send(Mapping mapping, String user, String message) throws IOException {
+        DiscordWebhook request = new DiscordWebhook(mapping.getDiscordWebhookUrl());
         request.setContent(message);
         request.setUsername(user);
+        request.setAvatarUrl("https://cravatar.eu/helmhead/" + user + "/256.png");
         request.execute();
     }
 
