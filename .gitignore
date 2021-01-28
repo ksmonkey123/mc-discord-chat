@@ -2,3 +2,5 @@
 target/
 *.iml
 /config/
+/flyway.properties
+

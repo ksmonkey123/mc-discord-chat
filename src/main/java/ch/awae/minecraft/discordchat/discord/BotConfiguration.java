@@ -21,8 +21,8 @@ public class BotConfiguration {
     private final String token;
 
     @Autowired
-    public BotConfiguration(@Value("${discord.token}") String tokenFile) throws IOException {
-        token = Files.readAllLines(new File(tokenFile).toPath()).get(0);
+    public BotConfiguration(@Value("${discord.token}") String token) {
+        this.token = token;
     }
 
     @Bean
