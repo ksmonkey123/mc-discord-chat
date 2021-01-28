@@ -15,7 +15,7 @@ public class DiscordSendingService {
     private final String url;
 
     @Autowired
-    public DiscordSendingService(DiscordConfiguration config, GatewayDiscordClient client) {
+    public DiscordSendingService(DiscordConfig config, GatewayDiscordClient client) {
         this.url = client.getChannelById(config.getChannelId())
                 .map(Channel::getRestChannel)
                 .flatMapMany(RestChannel::getWebhooks)

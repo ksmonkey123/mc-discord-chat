@@ -17,14 +17,4 @@ public class McDiscordChatApplication {
         SpringApplication.run(McDiscordChatApplication.class, args);
     }
 
-    @Bean
-    public RestTemplate createRestTemplate() {
-        return new RestTemplate();
-    }
-
-    @Bean
-    public ExecutorService createExecutorService() {
-        return Executors.newCachedThreadPool();
-    }
-
 }

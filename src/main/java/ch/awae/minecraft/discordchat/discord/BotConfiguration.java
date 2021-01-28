@@ -17,7 +17,7 @@ public class BotConfiguration {
     private final String token;
 
     @Autowired
-    public BotConfiguration(DiscordConfiguration config) throws IOException {
+    public BotConfiguration(DiscordConfig config) throws IOException {
         token = config.getToken();
     }
 

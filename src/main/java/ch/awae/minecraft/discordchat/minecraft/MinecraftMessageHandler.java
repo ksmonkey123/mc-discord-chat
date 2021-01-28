@@ -22,19 +22,9 @@ public class MinecraftMessageHandler {
     }
 
     @PostMapping("/message")
-    public void message(@RequestBody MessageRequest request) throws IOException {
+    public void message(@RequestBody ChatMessage request) throws IOException {
         log.info(request.toString());
         sendingService.send(request.user, request.message);
-    }
-
-    static class MessageRequest {
-        public String user;
-        public String message;
-
-        @Override
-        public String toString() {
-            return user + ": " + message;
-        }
     }
 
 }

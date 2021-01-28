@@ -10,8 +10,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 @Configuration
-@ConfigurationProperties(prefix = "discord")
-public class DiscordConfiguration {
+@ConfigurationProperties("discord")
+public class DiscordConfig {
 
     private String tokenFile;
     private Long channelId;

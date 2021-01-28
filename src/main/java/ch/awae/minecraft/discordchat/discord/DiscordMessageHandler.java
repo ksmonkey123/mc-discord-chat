@@ -16,13 +16,13 @@ public class DiscordMessageHandler implements EventListener<MessageCreateEvent> 
 
     private static Logger log = Logger.getLogger(DiscordMessageHandler.class.getName());
 
-    private final DiscordConfiguration config;
+    private final DiscordConfig config;
     private final ExecutorService async;
     private final MinecraftSendingService service;
 
     @Autowired
     public DiscordMessageHandler(
-            DiscordConfiguration config,
+            DiscordConfig config,
             ExecutorService async,
             MinecraftSendingService service) {
         this.config = config;
