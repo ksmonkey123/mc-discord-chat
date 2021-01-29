@@ -10,7 +10,7 @@ public class DiscordSendingService {
 
     public void send(Mapping mapping, String user, String message) throws IOException {
         DiscordWebhook request = new DiscordWebhook(mapping.getDiscordWebhookUrl());
-        request.setContent(message);
+        request.setContent(message.replace("\"", "\\\""));
         request.setUsername(user);
         request.setAvatarUrl("https://cravatar.eu/helmhead/" + user + "/256.png");
         request.execute();

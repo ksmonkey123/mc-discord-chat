@@ -1,6 +1,5 @@
 package ch.awae.minecraft.discordchat.minecraft;
 
-import ch.awae.minecraft.discordchat.discord.DiscordSendingService;
 import ch.awae.minecraft.discordchat.persistence.model.Mapping;
 import ch.awae.minecraft.discordchat.persistence.repository.MappingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,34 +10,33 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @RestController
-public class MinecraftMessageHandler {
+public class MinecraftLogStatementController {
 
-    private static final Logger log = Logger.getLogger(MinecraftMessageHandler.class.getName());
-
-    private final DiscordSendingService sendingService;
     private final MappingRepository mappingRepository;
+    private final List<LogStatementProcessor> processors;
 
     @Autowired
-    public MinecraftMessageHandler(DiscordSendingService sendingService,
-                                   MappingRepository mappingRepository) {
-        this.sendingService = sendingService;
+    public MinecraftLogStatementController(MappingRepository mappingRepository,
+                                           List<LogStatementProcessor> processors) {
         this.mappingRepository = mappingRepository;
+        this.processors = processors;
     }
 
-    @PostMapping("/message")
+    @PostMapping("/log")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void message(@RequestBody ChatMessage request) throws IOException {
+    public void log(@RequestBody IncomingLogStatement request) {
         Mapping mapping = Optional.ofNullable(request)
                 .map(r -> r.token)
                 .flatMap(mappingRepository::findByMinecraftServerToken)
                 .orElseThrow(() -> new HttpClientErrorException(HttpStatus.FORBIDDEN));
-        log.info(request.toString());
-        sendingService.send(mapping, request.user, request.message);
+
+        for (LogStatementProcessor processor : processors) {
+            processor.process(mapping, request.message, LogType.fromErrorFlag(request.error));
+        }
     }
 
 }
