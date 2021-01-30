@@ -12,11 +12,15 @@ public class Mapping {
 
     private String discordChannelId;
 
+    private String discordChannelName;
+
     private String discordWebhookUrl;
 
     private String minecraftServerToken;
 
-    private String minecraftServerUrl;
+    private String minecraftServerAddress;
+
+    private String minecraftServerApiUrl;
 
     public Mapping() {
 
@@ -50,11 +54,27 @@ public class Mapping {
         this.minecraftServerToken = minecraftServerToken;
     }
 
-    public String getMinecraftServerUrl() {
-        return minecraftServerUrl;
+    public String getMinecraftServerAddress() {
+        return minecraftServerAddress;
     }
 
-    public void setMinecraftServerUrl(String minecraftServerUrl) {
-        this.minecraftServerUrl = minecraftServerUrl;
+    public void setMinecraftServerAddress(String minecraftServerAddress) {
+        this.minecraftServerAddress = minecraftServerAddress;
+    }
+
+    public String getDiscordChannelName() {
+        return discordChannelName;
+    }
+
+    public void setDiscordChannelName(String discordChannelName) {
+        this.discordChannelName = discordChannelName;
+    }
+
+    public String getMinecraftServerApiUrl() {
+        return minecraftServerApiUrl;
+    }
+
+    public void setMinecraftServerApiUrl(String minecraftServerUrl) {
+        this.minecraftServerApiUrl = minecraftServerUrl;
     }
 }

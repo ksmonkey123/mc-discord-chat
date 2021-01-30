@@ -16,7 +16,7 @@ public class MinecraftSendingService {
     }
 
     public void send(Mapping mapping, String user, String message) {
-        http.postForObject(mapping.getMinecraftServerUrl(), new ChatMessage(user, message), Object.class);
+        http.postForObject(mapping.getMinecraftServerApiUrl(), new ChatMessage(user, message), Object.class);
     }
 
 }
