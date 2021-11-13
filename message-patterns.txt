@@ -1,0 +1,8 @@
+[11:42:19] [Server thread/INFO] [minecraft/DedicatedServer]: ksmonkey123 joined the game
+[11:47:40] [Server thread/INFO] [minecraft/DedicatedServer]: ksmonkey123 left the game
+[11:46:28] [Server thread/INFO] [minecraft/DedicatedServer]: <ksmonkey123> hi there
+[13:42:17] [Server thread/INFO] [minecraft/DedicatedServer]: ksmonkey123 has made the advancement [We've Forgotten the Crackers!]
+
+^(?:\[.+\] ){2}\[[^\ ]+\]\: (\w+) (joined|left) the game$
+^(?:\[.+\] ){2}\[[^\<]+\]\: \<(\w+)\> (.*)$
+^(?:\[.+\] ){2}\[[^\ ]+\]\: (\w+) has made the advancement \[(.*)\]$
