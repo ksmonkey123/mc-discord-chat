@@ -6,7 +6,6 @@ import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.channel.Channel;
 import discord4j.discordjson.json.ChannelModifyRequest;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -51,9 +50,10 @@ public class ChannelNameProcessor {
             String channelName = mapping.getDiscordChannelName() + "︱" + response.players.online;
             modification = ChannelModifyRequest.builder()
                     .name(channelName)
-                    .topic(response.players.online > 0
-                            ? "online: " + String.join(", ", response.players.list)
-                            : "no players online")
+                    .topic(mapping.getDiscordChannelDescription() + " | " +
+                            (response.players.online > 0
+                                ? "online: " + String.join("\n - ", response.players.list)
+                                : "no players online"))
                     .build();
         } else {
             modification = ChannelModifyRequest.builder()

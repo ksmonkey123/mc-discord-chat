@@ -21,6 +21,8 @@ public class Mapping {
     private String minecraftServerAddress;
 
     private String minecraftServerApiUrl;
+    
+    private String discordChannelDescription;
 
     public Mapping() {
 
@@ -76,5 +78,13 @@ public class Mapping {
 
     public void setMinecraftServerApiUrl(String minecraftServerUrl) {
         this.minecraftServerApiUrl = minecraftServerUrl;
+    }
+
+    public String getDiscordChannelDescription() {
+        return discordChannelDescription;
+    }
+
+    public void setDiscordChannelDescription(String discordChannelDescription) {
+        this.discordChannelDescription = discordChannelDescription;
     }
 }
