@@ -52,7 +52,7 @@ public class ChannelNameProcessor {
                     .name(channelName)
                     .topic(mapping.getDiscordChannelDescription() + " | " +
                             (response.players.online > 0
-                                ? "online: " + String.join("\n - ", response.players.list)
+                                ? "online:\n - " + String.join("\n - ", response.players.list)
                                 : "no players online"))
                     .build();
         } else {
