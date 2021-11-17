@@ -1,5 +1,6 @@
 package ch.awae.minecraft.discordchat.discord;
 
+import ch.awae.minecraft.discordchat.discord.command.ChatCommandHandlerService;
 import ch.awae.minecraft.discordchat.minecraft.MinecraftSendingService;
 import ch.awae.minecraft.discordchat.minecraft.ServerStatusService;
 import ch.awae.minecraft.discordchat.persistence.model.Mapping;
@@ -31,22 +32,19 @@ public class DiscordMessageHandler implements EventListener<MessageCreateEvent> 
     private final ExecutorService async;
     private final MinecraftSendingService service;
     private final MappingRepository mappingRepository;
-    private final ServerStatusService statusService;
-    private final DiscordSendingService sendingService;
+    private final ChatCommandHandlerService commandHandlerService;
 
     @Autowired
     public DiscordMessageHandler(
             ExecutorService async,
             MinecraftSendingService service,
             MappingRepository mappingRepository,
-            DiscordSendingService sendingService,
-            ServerStatusService statusService
+            ChatCommandHandlerService commandHandlerService
     ) {
         this.async = async;
         this.service = service;
         this.mappingRepository = mappingRepository;
-        this.sendingService = sendingService;
-        this.statusService = statusService;
+        this.commandHandlerService = commandHandlerService;
     }
 
     @Override
@@ -77,7 +75,7 @@ public class DiscordMessageHandler implements EventListener<MessageCreateEvent> 
         log.info(author + ": " + message.getContent());
 
         if (message.getContent().equals("!info")) {
-            async.submit(() -> printServerStatus(mappedMessage.mapping));
+            async.submit(() -> commandHandlerService.printServerStatus(mappedMessage.mapping));
         } else {
             List<String> lines = Stream.of(message.getContent().split("\n"))
                     .map(line -> WordUtils.wrap(line, 255))
@@ -94,32 +92,6 @@ public class DiscordMessageHandler implements EventListener<MessageCreateEvent> 
         }
 
         return Mono.empty();
-    }
-
-    private void printServerStatus(Mapping mapping) {
-        ServerStatus serverStatus = statusService.getServerStatus(mapping);
-
-        String message;
-
-        if (serverStatus == null) {
-            message = "server offline";
-        } else {
-            List<String> playerNames = new ArrayList<>();
-            if (serverStatus.players.online > 0) {
-                for (Player player : serverStatus.players.players) {
-                    playerNames.add(player.name);
-                }
-            }
-
-            message = (serverStatus.players.online > 0
-                    ? "server online - "+serverStatus.players.online+" players:\n - " + String.join("\n - ", playerNames)
-                    : "server online - 0 players");
-        }
-        try {
-            sendingService.send(mapping, OutgoingDiscordMessage.serverMessage(message));
-        } catch (IOException e) {
-            log.log(Level.SEVERE, "error while sending message", e);
-        }
     }
 
     private static class MappedMessage {

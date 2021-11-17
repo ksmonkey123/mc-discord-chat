@@ -54,7 +54,6 @@ public class ChannelInfoUpdateTimerService {
     private void updateChannelName(Mapping mapping, ServerStatus response) {
         if (response != null) {
             String channelName = mapping.getDiscordChannelName() + "︱" + response.players.online;
-
             List<String> playerNames = new ArrayList<>();
 
             if (response.players.online > 0) {
@@ -63,7 +62,7 @@ public class ChannelInfoUpdateTimerService {
                 }
             }
 
-            String desc = (response.players.online > 0
+            String desc = mapping.getDiscordChannelDescription() + "︱" + (response.players.online > 0
                                     ? "online:\n - " + String.join("\n - ", playerNames)
                                     : "no players online");
 
