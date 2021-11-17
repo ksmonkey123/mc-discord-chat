@@ -8,12 +8,30 @@ import java.io.IOException;
 @Service
 public class DiscordSendingService {
 
-    public void send(Mapping mapping, String user, String message) throws IOException {
+    private static String[][] ESCAPE_SEQUENCES = {
+            {"\\", "\\\\"},
+            {"\"", "\\\""},
+            {"\n", "\\\n"}
+    };
+
+    public void send(Mapping mapping, OutgoingDiscordMessage message) throws IOException {
         DiscordWebhook request = new DiscordWebhook(mapping.getDiscordWebhookUrl());
-        request.setContent(message.replace("\"", "\\\""));
-        request.setUsername(user);
-        request.setAvatarUrl("https://cravatar.eu/helmhead/" + user + "/256.png");
+
+        String user = message.getUsername();
+        if (user == null) {
+            request.setUsername("Server Information");
+        } else {
+            request.setUsername(user);
+            request.setAvatarUrl("https://cravatar.eu/helmhead/" + user + "/256.png");
+        }
+        request.setContent(escapeMessage(message.getMessage()));
         request.execute();
     }
 
+    private String escapeMessage(String message) {
+        for (String[] escapeSequence : ESCAPE_SEQUENCES) {
+            message = message.replace(escapeSequence[0], escapeSequence[1]);
+        }
+        return message;
+    }
 }

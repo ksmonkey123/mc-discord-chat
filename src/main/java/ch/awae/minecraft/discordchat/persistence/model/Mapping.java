@@ -24,6 +24,10 @@ public class Mapping {
     
     private String discordChannelDescription;
 
+    private String minecraftStatusHost;
+
+    private String minecraftStatusPort;
+
     public Mapping() {
 
     }
@@ -86,5 +90,21 @@ public class Mapping {
 
     public void setDiscordChannelDescription(String discordChannelDescription) {
         this.discordChannelDescription = discordChannelDescription;
+    }
+
+    public String getMinecraftStatusHost() {
+        return minecraftStatusHost;
+    }
+
+    public void setMinecraftStatusHost(String minecraftStatusHost) {
+        this.minecraftStatusHost = minecraftStatusHost;
+    }
+
+    public String getMinecraftStatusPort() {
+        return minecraftStatusPort;
+    }
+
+    public void setMinecraftStatusPort(String minecraftStatusPort) {
+        this.minecraftStatusPort = minecraftStatusPort;
     }
 }
