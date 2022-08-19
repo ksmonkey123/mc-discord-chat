@@ -21,6 +21,7 @@ public class MinecraftSendingService {
 
     public void send(Mapping mapping, String user, String message) {
         if (mapping.getMinecraftServerApiUrl() != null) {
+            log.info("server " + mapping.getId() + ": discord ==> minecraft: " + user + ": " + message);
             http.postForObject(mapping.getMinecraftServerApiUrl(), new ChatMessage(mapping.getMinecraftServerToken(), user, message), Object.class);
         } else {
             log.warning("no minecraft_server_api_url set for mapping " + mapping.getId());
