@@ -2,24 +2,18 @@ package ch.awae.minecraft.discordchat.discord;
 
 import ch.awae.minecraft.discordchat.discord.command.ChatCommandHandlerService;
 import ch.awae.minecraft.discordchat.minecraft.MinecraftSendingService;
-import ch.awae.minecraft.discordchat.minecraft.ServerStatusService;
 import ch.awae.minecraft.discordchat.persistence.model.Mapping;
 import ch.awae.minecraft.discordchat.persistence.repository.MappingRepository;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.User;
-import mcstatus.model.Player;
-import mcstatus.model.ServerStatus;
 import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.logging.Logger;
+
 @Service
 public class MinecraftSendingService {
+
+    private final static Logger log = Logger.getLogger(MinecraftSendingService.class.getName());
 
     private final RestTemplate http;
 
@@ -16,7 +20,11 @@ public class MinecraftSendingService {
     }
 
     public void send(Mapping mapping, String user, String message) {
-        http.postForObject(mapping.getMinecraftServerApiUrl(), new ChatMessage(user, message), Object.class);
+        if (mapping.getMinecraftServerApiUrl() != null) {
+            http.postForObject(mapping.getMinecraftServerApiUrl(), new ChatMessage(mapping.getMinecraftServerToken(), user, message), Object.class);
+        } else {
+            log.warning("no minecraft_server_api_url set for mapping " + mapping.getId());
+        }
     }
 
 }
