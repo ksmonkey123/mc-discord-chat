@@ -37,7 +37,7 @@ public class ChannelInfoUpdateTimerService {
     @Scheduled(fixedRate = 300 * 1000)
     public void updateAll() {
         logger.info("updating minecraft server status");
-        repo.findAll()
+        repo.findByActive(true)
                 .stream()
                 .filter(m -> m.getMinecraftServerApiUrl() != null)
                 .filter(m -> m.getDiscordChannelName() != null)

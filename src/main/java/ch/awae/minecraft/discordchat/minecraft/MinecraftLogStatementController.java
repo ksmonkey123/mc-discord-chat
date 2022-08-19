@@ -31,7 +31,7 @@ public class MinecraftLogStatementController {
     public void log(@RequestBody IncomingLogStatement request) {
         Mapping mapping = Optional.ofNullable(request)
                 .map(r -> r.token)
-                .flatMap(mappingRepository::findByMinecraftServerToken)
+                .flatMap((String token) -> mappingRepository.findByMinecraftServerTokenAndActive(token, true))
                 .orElseThrow(() -> new HttpClientErrorException(HttpStatus.FORBIDDEN));
 
         for (LogStatementProcessor processor : processors) {

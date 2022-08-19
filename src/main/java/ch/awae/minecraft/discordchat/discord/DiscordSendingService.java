@@ -11,7 +11,7 @@ public class DiscordSendingService {
     private static String[][] ESCAPE_SEQUENCES = {
             {"\\", "\\\\"},
             {"\"", "\\\""},
-            {"\n", "\\\n"}
+            {"\n", "\\n"}
     };
 
     public void send(Mapping mapping, OutgoingDiscordMessage message) throws IOException {

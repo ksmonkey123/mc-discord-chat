@@ -59,7 +59,7 @@ public class DiscordMessageHandler implements EventListener<MessageCreateEvent> 
     private Mono<MappedMessage> fetchMapping(Message message) {
         return Mono.justOrEmpty(
                 mappingRepository
-                        .findByDiscordChannelId(message.getChannelId().asString())
+                        .findByDiscordChannelIdAndActive(message.getChannelId().asString(), true)
                         .map(mapping -> new MappedMessage(mapping, message)));
     }
 

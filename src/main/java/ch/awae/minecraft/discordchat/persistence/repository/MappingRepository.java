@@ -5,15 +5,18 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface MappingRepository extends JpaRepository<Mapping, Long> {
 
     @Cacheable(cacheNames = "mappingsByChannel")
-    Optional<Mapping> findByDiscordChannelId(String channelId);
+    Optional<Mapping> findByDiscordChannelIdAndActive(String channelId, boolean active);
 
     @Cacheable(cacheNames = "mappingsByToken")
-    Optional<Mapping> findByMinecraftServerToken(String token);
+    Optional<Mapping> findByMinecraftServerTokenAndActive(String token, boolean active);
+
+    List<Mapping> findByActive(boolean active);
 
 }

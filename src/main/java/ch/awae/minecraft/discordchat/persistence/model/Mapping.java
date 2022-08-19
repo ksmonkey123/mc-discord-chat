@@ -28,6 +28,8 @@ public class Mapping {
 
     private String minecraftStatusPort;
 
+    private boolean active;
+
     public Mapping() {
 
     }
@@ -106,5 +108,13 @@ public class Mapping {
 
     public void setMinecraftStatusPort(String minecraftStatusPort) {
         this.minecraftStatusPort = minecraftStatusPort;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
